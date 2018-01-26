@@ -1,0 +1,143 @@
+"Phrases"
+{
+    "Player agrees"
+    {
+        "en"            "agrees to knife to the death!"
+		"ru"            "согласился на ножевое сражение!"
+    }
+    "Player disagrees"
+    {
+        "en"            "is a big chicken!"
+		"ru"            "отказался от ножевого сражения!"
+    }
+    "Knife menu title"
+    {
+        "en"            "Last Man Standing Knife Fight!"
+		"ru"            "Последний выжвший на ножах!"
+    }
+    "Knife question"
+    {
+        "en"            "Do you want to knife it out?"
+		"ru"            "Вы хотите сражаться на ножах?"
+    }
+    "Yes option"
+    {
+        "en"            "Yes, Fight to the death!"
+		"ru"            "Да!"
+    }
+    "No option"
+    {
+        "en"            "No, I'm a chicken!"
+		"ru"            "Нет!"
+    }
+    "Both agree"
+    {
+        "en"            "Both Players Agreed!  Fight to the death!"
+		"ru"            "Оба игрока согласны!"
+    }
+    "1v1 situation"
+    {
+        "en"            "Last Man Standing!"
+		"ru"            "Последний выживший!"
+    }
+    "beat"
+    {
+        "en"            "beat"
+		"ru"            "битва"
+    }
+    "win battle"
+    {
+        "en"            "to win the battle!"
+		"ru"            "выйграл битву!"
+    }
+    "Time remaining"
+    {
+        "en"            "Fight Time Remaining"
+		"ru"            "Время идет:"
+    }
+    "Fight draw"
+    {
+        "en"            "Time expired!  The fight was a draw!"
+		"ru"            "Время вышло!Ничья!"
+    }
+    "Items won"
+    {
+        "en"            "You won the following:"
+		"ru"            "Вы выйграли следующее:"
+    }
+    "Health"
+    {
+        "en"            "Health"
+		"ru"            "Жизни"
+    }
+    "Money"
+    {
+        "en"            "Money"
+		"ru"            "Деньги"
+    }
+    "Speed"
+    {
+        "en"            "Speed"
+		"ru"            "Скорость"
+    }
+    "Removing weapons"
+    {
+        "en"            "Removing all weapons"
+		"ru"            "Все оружее убрано"
+    }
+    "Prepare fight"
+    {
+        "en"            "Prepare to fight in"
+		"ru"            "Подготовьтесь боросться через:"
+    }
+    "Fight"
+    {
+        "en"            "FIGHT!!!"
+		"ru"            "Сражайтесь!!!"
+    }
+    "KnifeFight settings"
+    {
+        "en"            "[Fight1of1] Settings"
+		"ru"            "[Fight1of1] Опции"
+    }
+    "Play fight songs"
+    {
+        "en"            "Play fight songs"
+		"ru"            "Играть звуки"
+    }
+    "Selected"
+    {
+        "en"            "[√]"
+		"ru"            "[√]"
+    }
+    "NotSelected"
+    {
+        "en"            "[ ]"
+		"ru"            "[ ]"
+    }
+    "Show fight panel"
+    {
+        "en"            "Show fight panel"
+		"ru"            "Показать панель"
+    }
+    "Restore fight menu"
+    {
+        "en"            "say !kfmenu and press 2 to restore fight menu."
+		"ru"            "пишите в чате !kfmenu и нажмите 2 что бы вернуть меню."
+    }
+    "Always agree to knife fight"
+    {
+        "en"            "Always agree to knife fight"
+		"ru"            "Всегда  соглашаться к борьбе на ножах"
+    }
+    "Always disagree to knife fight"
+    {
+        "en"            "Always disagree to knife fight"
+		"ru"            "Всегда не соглашаться к борьбе на ножах"
+    }    
+    "has won"
+    {
+        "en"            "has won knife fight"
+		"ru"            "выиграл борьбу на ножах"
+    }    
+}
