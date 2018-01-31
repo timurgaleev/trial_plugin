@@ -70,6 +70,27 @@ new g_iMyWeapons, g_iHealth, g_iAccount, g_iSpeed;
 new g_beamsprite, g_halosprite, g_lightning, g_locatebeam, g_locatehalo;
 new g_countdowntimer, g_winnerhealth, g_winnermoney, g_minplayers;
 new g_fighttimer, fighttimer;
+new Float:g_beaconragius;
+new Handle:g_Cvarenabled        = INVALID_HANDLE;
+new Handle:g_Cvarblock          = INVALID_HANDLE;
+new Handle:g_Cvarrandomkill     = INVALID_HANDLE;
+new Handle:g_Cvarminplayers     = INVALID_HANDLE;
+new Handle:g_Cvardeclinesound   = INVALID_HANDLE;
+new Handle:g_Cvarbeaconsound    = INVALID_HANDLE;
+new Handle:g_Cvarfightsongs     = INVALID_HANDLE;
+new Handle:g_Cvaruseteleport    = INVALID_HANDLE;
+new Handle:g_Cvarrestorehealth  = INVALID_HANDLE;
+new Handle:g_Cvarwinnerspeed    = INVALID_HANDLE;
+new Handle:g_Cvarwinnerhealth   = INVALID_HANDLE;
+new Handle:g_Cvarwinnermoney    = INVALID_HANDLE;
+new Handle:g_Cvarwinnereffects  = INVALID_HANDLE;
+new Handle:g_Cvarlosereffects   = INVALID_HANDLE;
+new Handle:g_Cvarlocatorbeam    = INVALID_HANDLE;
+new Handle:g_Cvarstopmusic      = INVALID_HANDLE;
+new Handle:g_Cvarforcefight     = INVALID_HANDLE;
+new Handle:g_Cvarcountdowntimer = INVALID_HANDLE;
+new Handle:g_Cvarfighttimer     = INVALID_HANDLE;
+new Handle:g_Cvarbeaconradius   = INVALID_HANDLE;
 new UserMsg:g_VGUIMenu;
 
 new Handle:g_WeaponSlots    = INVALID_HANDLE;
@@ -108,6 +129,57 @@ public OnPluginStart()
     CHAT_DetectColorMsg();
     LoadTranslations("Fight1of1.phrases");
     
+	 g_Cvarenabled       = CreateConVar("sm_1of1fight_enabled",     "1", 
+        "Enable this plugin. 0 = Disabled");
+
+   
+    g_Cvarblock         = CreateConVar("sm_1of1fight_block",     "0", 
+        "Enable player blocking (disable sm_noblock) if sm_noblock is enabled while knife fight. 0 = Disabled");
+    g_Cvarrandomkill    = CreateConVar("sm_1of1fight_randomkill",  "0", 
+        "Enable random kill after knife fight time end. 0 = Disabled");
+    g_Cvarminplayers    = CreateConVar("sm_1of1fight_minplayers",  "4", 
+        "Minimum number of players before knife fights will trigger.");
+    g_Cvaruseteleport   = CreateConVar("sm_1of1fight_useteleport", "1", 
+        "Use smart teleport system prior to knife fight. 0 = Disabled");
+    g_Cvarrestorehealth = CreateConVar("sm_1of1fight_restorehealth",   "1", 
+        "Give players full health before knife fight. 0 = Disabled");
+    g_Cvarforcefight    = CreateConVar("sm_1of1fight_forcefight",  "0", 
+        "Force knife fight at end of round instead of prompting with menus. 0 = Disabled");
+    g_Cvarwinnerhealth  = CreateConVar("sm_1of1fight_winnerhealth",    "0", 
+        "Total health to give the winner. 0 = Disabled");
+    g_Cvarwinnerspeed   = CreateConVar("sm_1of1fight_winnerspeed", "0", 
+        "Total speed given to the winner. 0 = Disabled (1.0 is normal speed, 2.0 is twice normal)");
+    g_Cvarwinnermoney   = CreateConVar("sm_1of1fight_winnermoney", "0", 
+        "Total extra money given to the winner. 0 = Disabled");
+    g_Cvarwinnereffects = CreateConVar("sm_1of1fight_winnereffects",   "1", 
+        "Enable special effects on the winner. 0 = Disabled");
+    g_Cvarlosereffects  = CreateConVar("sm_1of1fight_losereffects",    "1", 
+        "Dissolve loser body using special effects. 0 = Disabled");
+    g_Cvarlocatorbeam   = CreateConVar("sm_1of1fight_locatorbeam", "1", 
+        "Use locator beam between players if they are far apart. 0 = Disabled");
+    g_Cvarstopmusic     = CreateConVar("sm_1of1fight_stopmusic",   "0", 
+        "Stop music when fight is over. Useful when used with gungame. 0 = Disabled");
+    g_Cvardeclinesound  = CreateConVar("sm_1of1fight_declinesound",    "1of1fight/chicken.wav", 
+        "The sound to play when player declines to knife.");
+    g_Cvarbeaconsound   = CreateConVar("sm_1of1fight_beaconsound", "buttons/blip1.wav", 
+        "The sound to play when beacon ring shows.");
+    g_Cvarcountdowntimer    = CreateConVar("sm_1of1fight_countdowntimer",  "3", 
+        "Number of seconds to count down before a knife fight.");
+    g_Cvarfighttimer    = CreateConVar("sm_1of1fight_fighttimer",  "30", 
+        "Number of seconds to allow for knifing.    Players get slayed after this time limit expires.");
+    g_Cvarbeaconradius  = CreateConVar("sm_1of1fight_beaconradius",    "800",  
+        "Beacon radius.");
+    g_Cvarfightsongs    = CreateConVar("sm_1of1fight_fightsongs",  "", 
+        "Songs to play during the fight, comma delimited. (example: 1of1fight/song1.mp3,1of1fight/song2.mp3,1of1fight/song3.mp3) (max: 20)");
+    g_Cvar_IsBotFightAllowed    = CreateConVar("sm_1of1fight_botfight",       "0", 
+        "Allow bot to knife fight with bot. 0 = Disabled");
+    g_isBotFightAllowed         = GetConVarBool(g_Cvar_IsBotFightAllowed);
+    g_Cvar_ShowWinner       = CreateConVar("sm_1of1fight_showwinner",    "0",
+        "Show winner. (0 - Top left, 1 - Chat)");
+    g_showWinner            = GetConVarInt(g_Cvar_ShowWinner);
+    g_Cvar_RemoveNewPlayer  = CreateConVar("sm_1of1fight_removenewplayer",    "0",
+        "Remove player connected when fight is started. (0 - Slay, 1 - Move to spec)");
+    g_removeNewPlayer       = GetConVarInt(g_Cvar_RemoveNewPlayer);
         GetLanguageInfo(GetServerLanguage(), languagecode, sizeof(languagecode), language, sizeof(language));
 
     new f_WeaponSlots[MAX_WEAPONS] =
